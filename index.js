@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 const timesheetRoute = require('./routes/timesheet');
 const customerRoute = require('./routes/customer');
 const projectRoute = require('./routes/project');
+const expenseCodeRoute = require('./routes/expensecode');
 
 app.get('/', function (req, res) {
 
@@ -73,6 +74,7 @@ app.get('/', function (req, res) {
 app.use('/timesheet', timesheetRoute);
 app.use('/customer', customerRoute);
 app.use('/project', projectRoute);
+app.use('/expense-code', expenseCodeRoute);
 
 
 
