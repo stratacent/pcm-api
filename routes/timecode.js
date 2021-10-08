@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
         
                 var request = new sql.Request();
 
-                request.query(`Select * from TimeCode`, function (err, recordset) {
+                request.query(`Select * from TimeCodes`, function (err, recordset) {
 
                     if (err) console.log(err);
 
