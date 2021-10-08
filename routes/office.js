@@ -10,9 +10,10 @@ const config = {
     server: 'homefront-db.database.windows.net',                 
 };
 
+
 router.get('/', async (req, res) => {
 
-    try {
+    try {        
 
         if (true) {
 
@@ -24,7 +25,7 @@ router.get('/', async (req, res) => {
         
                 var request = new sql.Request();
 
-                request.query(`Select * from Project`, function (err, recordset) {
+                request.query(`Select * from Office`, function (err, recordset) {
 
                     if (err) console.log(err);
 
@@ -32,7 +33,6 @@ router.get('/', async (req, res) => {
         
                 });
             });
-            //return res.status(200).json({success: true, msg: "Customer Data Added."});
 
         } else {
             return res.status(200).json({success: false, msg: "Warning: Empty Data !!"});
@@ -43,18 +43,19 @@ router.get('/', async (req, res) => {
         console.log(err);
 
     }
+
 });
 
 router.post('/add', async (req, res) => {
 
     try {
 
-        let project = {};
+        let office = {};
         const date = new Date();
 
-        project = req.body.project;
+        office = req.body.office;
 
-        console.log('project details: ' + project);
+        console.log('office details: ' + office);
 
         if (true) {
 
@@ -66,30 +67,28 @@ router.post('/add', async (req, res) => {
         
                 var request = new sql.Request();
                    
-                request.query(`INSERT INTO Project (                        
-                    ProjectName
-                )
-                VALUES
-                    (
-                        '${project.ProjectName}'
-                    )`, function (err, recordset) {
+                request.query(`INSERT INTO Office (OfficeName)
+                VALUES ('${office.OfficeName}')`, function (err, recordset) {
 
-                    if (err) console.log(err)
+                    if (err) console.log(err);
+
+                    console.log(recordset);
         
                 });
             });
 
-            return res.status(200).json({success: true, msg: "Project Data Added.."});
+            return res.status(200).json({success: true, msg: "Office Data Added."});
 
         } else {
             return res.status(200).json({success: false, msg: "Warning: Empty Data !!"});
         }
 
     } catch (err) {
-
         console.log(err);
+        return res.status(500).json({success: false, msg: "Error Occured"});
 
     }
+
 });
 
 

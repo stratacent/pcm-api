@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
         
                 var request = new sql.Request();
 
-                request.query(`Select * from Customer`, function (err, recordset) {
+                request.query(`Select * from Employee`, function (err, recordset) {
 
                     if (err) console.log(err);
 
@@ -51,12 +51,12 @@ router.post('/add', async (req, res) => {
 
     try {
 
-        let customer = {};
+        let employee = {};
         const date = new Date();
 
-        customer = req.body.customer;
+        employee = req.body.employee;
 
-        console.log('customer details: ' + customer);
+        console.log('employee details: ' + employee);
 
         var config = {
             user: process.env.DB_USER || "sas",
@@ -75,12 +75,12 @@ router.post('/add', async (req, res) => {
         
                 var request = new sql.Request();
                    
-                request.query(`INSERT INTO dbo.Customer (                        
-                    CustomerName
+                request.query(`INSERT INTO Employee (                        
+                    EmployeeName
                 )
                 VALUES
                     (
-                        "Moodys"
+                        "John"
                     )`, function (err, recordset) {
 
                     if (err) console.log(err)

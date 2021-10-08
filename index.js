@@ -14,6 +14,9 @@ const timesheetRoute = require('./routes/timesheet');
 const customerRoute = require('./routes/customer');
 const projectRoute = require('./routes/project');
 const expenseCodeRoute = require('./routes/expensecode');
+const officeRoute = require('./routes/office');
+const timecodeRoute = require('./routes/timecode');
+const employeeRoute = require('./routes/employee');
 
 app.get('/', function (req, res) {
 
@@ -75,6 +78,9 @@ app.use('/timesheet', timesheetRoute);
 app.use('/customer', customerRoute);
 app.use('/project', projectRoute);
 app.use('/expense-code', expenseCodeRoute);
+app.use('/office', officeRoute);
+app.use('/employee', employeeRoute);
+app.use('/timecode', timecodeRoute);
 
 
 

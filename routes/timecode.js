@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
         
                 var request = new sql.Request();
 
-                request.query(`Select * from Customer`, function (err, recordset) {
+                request.query(`Select * from TimeCode`, function (err, recordset) {
 
                     if (err) console.log(err);
 
@@ -51,12 +51,12 @@ router.post('/add', async (req, res) => {
 
     try {
 
-        let customer = {};
+        let timecode = {};
         const date = new Date();
 
-        customer = req.body.customer;
+        timecode = req.body.timecode;
 
-        console.log('customer details: ' + customer);
+        console.log('details: ' + timecode);
 
         var config = {
             user: process.env.DB_USER || "sas",
@@ -75,12 +75,12 @@ router.post('/add', async (req, res) => {
         
                 var request = new sql.Request();
                    
-                request.query(`INSERT INTO dbo.Customer (                        
-                    CustomerName
+                request.query(`INSERT INTO TimeCode (                        
+                    Name
                 )
                 VALUES
                     (
-                        "Moodys"
+                        '001'
                     )`, function (err, recordset) {
 
                     if (err) console.log(err)
@@ -88,7 +88,7 @@ router.post('/add', async (req, res) => {
                 });
             });
 
-            return res.status(200).json({success: true, msg: "Customer Data Added."});
+            return res.status(200).json({success: true, msg: "Timecode Data Added."});
 
         } else {
             return res.status(200).json({success: false, msg: "Warning: Empty Data !!"});
