@@ -54,9 +54,13 @@ router.post('/add', async (req, res) => {
         let customer = {};
         const date = new Date();
 
-        customer = req.body.customer;
+        console.log('Req body :');
+        console.log(req.body);
+
+        customer = req.body;
 
         console.log('customer details: ' + customer);
+        console.log(customer);
 
         var config = {
             user: process.env.DB_USER || "sas",
@@ -75,12 +79,16 @@ router.post('/add', async (req, res) => {
         
                 var request = new sql.Request();
                    
-                request.query(`INSERT INTO dbo.Customer (                        
-                    CustomerName
+                request.query(`INSERT INTO Customer (                        
+                    CustomerName, CustomerAddress, CustomerCity, CustomerState, CustomerCountry
                 )
                 VALUES
                     (
-                        "Moodys"
+                        '${customer.CustomerName}',
+                        '${customer.CustomerAddress}',
+                        '${customer.CustomerCity}',
+                        '${customer.CustomerState}',
+                        '${customer.CustomerCountry}' 
                     )`, function (err, recordset) {
 
                     if (err) console.log(err)
