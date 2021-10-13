@@ -52,9 +52,10 @@ router.post('/add', async (req, res) => {
         let project = {};
         const date = new Date();
 
-        project = req.body.project;
+        project = req.body;
 
-        console.log('project details: ' + project);
+        console.log('project details: ');
+        console.log(project);
 
         if (true) {
 
@@ -67,11 +68,16 @@ router.post('/add', async (req, res) => {
                 var request = new sql.Request();
                    
                 request.query(`INSERT INTO Project (                        
-                    ProjectName
+                    ProjectName,
+                    ProjectDesc,
+                    TotalAmt
+
                 )
                 VALUES
                     (
-                        '${project.ProjectName}'
+                        '${project.ProjectName}',
+                        '${project.ProjectDesc}',
+                        '${project.TotalAmt}'
                     )`, function (err, recordset) {
 
                     if (err) console.log(err)
