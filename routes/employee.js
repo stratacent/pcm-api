@@ -12,17 +12,17 @@ router.get('/', async (req, res) => {
             user: process.env.DB_USER || "sas",
             password: process.env.DB_PWD || "Sharepoint@1234",
             database: process.env.DB_NAME || "sharepoint-db",
-            server: 'homefront-db.database.windows.net',                 
+            server: 'homefront-db.database.windows.net',
         };
 
         if (true) {
 
             sql.connect(config, function (err) {
-    
+
                 if (err) {
                     console.log(err);
                 }
-        
+
                 var request = new sql.Request();
 
                 request.query(`Select * from Employee`, function (err, recordset) {
@@ -30,13 +30,13 @@ router.get('/', async (req, res) => {
                     if (err) console.log(err);
 
                     res.send(recordset);
-        
+
                 });
             });
             //return res.status(200).json({success: true, msg: "Customer Data Added."});
 
         } else {
-            return res.status(200).json({success: false, msg: "Warning: Empty Data !!"});
+            return res.status(200).json({ success: false, msg: "Warning: Empty Data !!" });
         }
 
     } catch (err) {
@@ -54,49 +54,57 @@ router.post('/add', async (req, res) => {
         let employee = {};
         const date = new Date();
 
-        employee = req.body.employee;
+        employee = req.body;
 
-        console.log('employee details: ' + employee);
+        employee.EmployemntTypeLkpKey = employee.EmployemntTypeLkpKey === undefined ? 2 : employee.EmployemntTypeLkpKey;
+        employee.OfficeLocationKey = employee.OfficeLocationKey === undefined ? 1 : employee.OfficeLocationKey;
+        employee.ManagerKey = employee.ManagerKey === undefined ? 1 : employee.ManagerKey;
+
+        console.log('employee details: ');
+        console.log(employee);
 
         var config = {
             user: process.env.DB_USER || "sas",
             password: process.env.DB_PWD || "Sharepoint@1234",
             database: process.env.DB_NAME || "sharepoint-db",
-            server: 'homefront-db.database.windows.net',                 
+            server: 'homefront-db.database.windows.net',
         };
 
         if (true) {
 
             sql.connect(config, function (err) {
-    
+
                 if (err) {
                     console.log(err);
                 }
-        
+
                 var request = new sql.Request();
-                   
+
                 request.query(`INSERT INTO Employee (                        
-                    EmployeeName
+                    EmployeeName, LoadedCost, VacationDays, EmployemntTypeLkpKey, OfficeLocationKey, ManagerKey
                 )
                 VALUES
                     (
-                        "John"
-                    )`, function (err, recordset) {
-
+                        '${employee.EmployeeName}',
+                        '${employee.LoadedCost}',
+                        '${employee.VacationDays}',
+                        '${employee.EmployemntTypeLkpKey}',
+                        '${employee.OfficeLocationKey}',
+                        '${employee.ManagerKey}'
+                    )`, function (err) {
                     if (err) console.log(err)
-        
                 });
             });
 
-            return res.status(200).json({success: true, msg: "Customer Data Added."});
+            return res.status(200).json({ success: true, msg: "Customer Data Added." });
 
         } else {
-            return res.status(200).json({success: false, msg: "Warning: Empty Data !!"});
+            return res.status(200).json({ success: false, msg: "Warning: Empty Data !!" });
         }
 
     } catch (err) {
         console.log(err);
-        return res.status(500).json({success: false, msg: "Error Occured"});
+        return res.status(500).json({ success: false, msg: "Error Occured" });
 
     }
 
