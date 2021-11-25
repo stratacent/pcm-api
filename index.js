@@ -17,6 +17,7 @@ const expenseCodeRoute = require('./routes/expensecode');
 const officeRoute = require('./routes/office');
 const timecodeRoute = require('./routes/timecode');
 const employeeRoute = require('./routes/employee');
+const lookUpRoute = require('./routes/lookup');
 
 app.get('/', function (req, res) {
 
@@ -81,6 +82,9 @@ app.use('/expense-code', expenseCodeRoute);
 app.use('/office', officeRoute);
 app.use('/employee', employeeRoute);
 app.use('/timecode', timecodeRoute);
+app.use('/lookup', lookUpRoute);
+
+
 
 
 
